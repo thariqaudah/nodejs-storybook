@@ -1,3 +1,4 @@
+const path = require('path');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const colors = require('colors');
@@ -16,6 +17,12 @@ connectDB();
 require('./config/passport')(passport);
 
 const app = express();
+
+// EJS view engine
+app.set('view engine', 'ejs');
+
+// Static asset
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Morgan
 if (process.env.NODE_ENV === 'development') {

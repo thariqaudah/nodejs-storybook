@@ -8,7 +8,27 @@ module.exports = function (passport) {
     callbackURL: '/auth/google/callback'
   },
   async (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
+    try {
+      const newUser = {
+        googleId: profile.id,
+        displayName: profile.displayName,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        photo: profile.photos[0].value
+      }
+      // Check user in DB
+      let user = await User.findOne({ googleId: newUser.googleId });
+  
+      if (user) {
+        done(null, user);
+      } else {
+        // Save user to DB
+        user = await User.create(newUser);
+        done(null, user);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }));
 
   passport.serializeUser((user, done) => {

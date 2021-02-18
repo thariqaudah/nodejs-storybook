@@ -2,10 +2,10 @@
   "name": "nodejs-storybook",
   "version": "1.0.0",
   "description": "Node.js Storybook",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server",
-    "dev": "cross-env NODE_ENV=development nodemon server"
+    "start": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=development nodemon app"
   },
   "author": "Thariq Audah",
   "license": "MIT",
@@ -16,6 +16,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mongoose": "^5.11.16",
