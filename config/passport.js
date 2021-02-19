@@ -8,17 +8,17 @@ module.exports = function (passport) {
     callbackURL: '/auth/google/callback'
   },
   async (accessToken, refreshToken, profile, done) => {
+    const newUser = {
+      googleId: profile.id,
+      displayName: profile.displayName,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      photo: profile.photos[0].value
+    }
+
     try {
-      const newUser = {
-        googleId: profile.id,
-        displayName: profile.displayName,
-        firstName: profile.name.givenName,
-        lastName: profile.name.familyName,
-        photo: profile.photos[0].value
-      }
       // Check user in DB
       let user = await User.findOne({ googleId: newUser.googleId });
-  
       if (user) {
         done(null, user);
       } else {

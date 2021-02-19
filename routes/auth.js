@@ -14,7 +14,15 @@ router.get('/google/callback',
   (req, res) => {
     // Success authenticate, redirect
     res.status(200).redirect('/dashboard');
-  });
+  }
+);
+
+// @desc      Handle logout
+// @route     GET /logout
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
 
 module.exports = router;

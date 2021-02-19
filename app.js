@@ -1,8 +1,9 @@
 const path = require('path');
 const dotenv = require('dotenv');
+const express = require('express');
+const exphbs = require('express-handlebars');
 const connectDB = require('./config/db');
 const colors = require('colors');
-const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
@@ -18,8 +19,9 @@ require('./config/passport')(passport);
 
 const app = express();
 
-// EJS view engine
-app.set('view engine', 'ejs');
+// Handlebars
+app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
+app.set('view engine', '.hbs');
 
 // Static asset
 app.use(express.static(path.join(__dirname, 'public')));
